@@ -23,31 +23,49 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(__dirname + '/public'));
 
 
-app.get('/', 
+app.get('/',
 function(req, res) {
   res.render('index');
+  console.log('i am app.get on line 1');
 });
 
-app.get('/create', 
+app.get('/create',
 function(req, res) {
   res.render('index');
+  console.log('i am app.get on line 2');
 });
 
-app.get('/links', 
+app.get('/login',
+function(req, res) {
+  res.render('login');
+  console.log('you are in LOG IN');
+});
+
+app.get('/signup',
+function(req, res) {
+  res.render('signup');
+  console.log('you are in SIGN UP');
+});
+
+app.get('/links',
 function(req, res) {
   Links.reset().fetch().then(function(links) {
     res.status(200).send(links.models);
+    console.log('i am app.get on line 3')
   });
 });
 
-app.post('/links', 
+app.post('/links',
 function(req, res) {
   var uri = req.body.url;
-
+  console.log('i am app.post on line 49')
+  console.log(uri);
   if (!util.isValidUrl(uri)) {
     console.log('Not a valid url: ', uri);
     return res.sendStatus(404);
   }
+  // //post google 3
+  // [google: 1 , amazon: 2, googe: 3]
 
   new Link({ url: uri }).fetch().then(function(found) {
     if (found) {
@@ -85,6 +103,7 @@ function(req, res) {
 /************************************************************/
 
 app.get('/*', function(req, res) {
+  console.log('i am app.get on line 91')
   new Link({ code: req.params[0] }).fetch().then(function(link) {
     if (!link) {
       res.redirect('/');
