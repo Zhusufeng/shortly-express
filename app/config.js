@@ -39,6 +39,37 @@ db.knex.schema.hasTable('clicks').then(function(exists) {
 /************************************************************/
 // Add additional schema definitions below
 /************************************************************/
+db.knex.schema.hasTable('users').then(function(exists) {
+  if (!exists) {
+    db.knex.schema.createTable('users', function (link) {
+      link.increments('id').primary();
+      link.string('username', 30);
+      link.string('password', 100);  // hashedpassword
+    }).then(function (table) {
+      console.log('Created Table', table);
+    });
+  }
+});
 
+// JOIN TABLE
+db.knex.schema.hasTable('users_urls').then(function(exists) {
+  if (!exists) {
+    db.knex.schema.createTable('users_urls', function (link) {
+      link.increments('id').primary();
+      link.integer('user_id').references('users.id');
+      link.integer('urls_id').references('urls.id');
+    }).then(function (table) {
+      console.log('Created Table', table);
+    });
+  }
+});
+// table: users_links
+// userid, link id
+// 1       amazon
+// 1        google
+// 1        walmart
+// 1        cnn
+// 2        ebay
+// 2        paypal
 
 module.exports = db;
