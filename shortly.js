@@ -23,40 +23,34 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(__dirname + '/public'));
 
 
-app.get('/',
-function(req, res) {
+app.get('/', function(req, res) {
   res.render('index');
   console.log('i am app.get on line 1');
 });
 
-app.get('/create',
-function(req, res) {
+app.get('/create', function(req, res) {
   res.render('index');
   console.log('i am app.get on line 2');
 });
 
-app.get('/login',
-function(req, res) {
+app.get('/login', function(req, res) {
   res.render('login');
   console.log('you are in LOG IN');
 });
 
-app.get('/signup',
-function(req, res) {
+app.get('/signup', function(req, res) {
   res.render('signup');
   console.log('you are in SIGN UP');
 });
 
-app.get('/links',
-function(req, res) {
+app.get('/links', function(req, res) {
   Links.reset().fetch().then(function(links) {
     res.status(200).send(links.models);
     console.log('i am app.get on line 3')
   });
 });
 
-app.post('/links',
-function(req, res) {
+app.post('/links', function(req, res) {
   var uri = req.body.url;
   console.log('i am app.post on line 49')
   console.log(uri);
@@ -88,6 +82,14 @@ function(req, res) {
       });
     }
   });
+});
+
+app.post('/signup', function(req, res) {
+  User.prototype.storeUser(req.body.username, req.body.password);
+});
+
+app.post('/login', function(req, res) {
+  console.log('Input at signup: ', req.body);
 });
 
 /************************************************************/
