@@ -53,17 +53,17 @@ db.knex.schema.hasTable('users').then(function(exists) {
 });
 
 // JOIN TABLE
-db.knex.schema.hasTable('users_urls').then(function(exists) {
-  if (!exists) {
-    db.knex.schema.createTable('users_urls', function (link) {
-      link.increments('id').primary();
-      link.integer('user_id').references('users.id');
-      link.integer('urls_id').references('urls.id');
-    }).then(function (table) {
-      console.log('Created Table', table);
-    });
-  }
-});
+// db.knex.schema.hasTable('users_urls').then(function(exists) {
+//   if (!exists) {
+//     db.knex.schema.createTable('users_urls', function (link) {
+//       link.increments('id').primary();
+//       link.integer('user_id').references('users.id');
+//       link.integer('urls_id').references('urls.id');
+//     }).then(function (table) {
+//       console.log('Created Table', table);
+//     });
+//   }
+// });
 // table: users_links
 // userid, link id
 // 1       amazon
